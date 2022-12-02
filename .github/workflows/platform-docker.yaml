@@ -6,7 +6,7 @@ on:
 
 # Set now date env
 env:
-  NOW: ${{ format('now-{0}', github.run_number) }}
+  version: ${{ format('now-{0}', github.run_number) }}
 
 jobs:
   build:
@@ -20,6 +20,9 @@ jobs:
           # Optionally strip `v` prefix
           strip_v: true
         continue-on-error: true
+      - name: Set tag env
+        if: steps.tag.outcome == 'success'
+        run: echo "version=${{ steps.tag.outputs.tag }}" >> $GITHUB_ENV
       - name: Maven Build
         run: mvn clean package -DskipTests
       - name: Push to Docker Hub
