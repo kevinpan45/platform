@@ -28,7 +28,7 @@ jobs:
       - name: Push to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: kevinpan45/platform:${{steps.tag.outputs.tag:NOW}}
+          name: kevinpan45/platform:${{steps.tag.outputs.tag:version}}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
