@@ -1,0 +1,26 @@
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1.1.0
+        with:
+          # Optionally strip `v` prefix
+          strip_v: true
+      - name: Maven Build
+        run: mvn clean package -DskipTests
+      - name: Push to Docker Hub
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: kevinpan45/platform:${{steps.tag.outputs.tag}}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          context: .
