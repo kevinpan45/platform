@@ -3,6 +3,11 @@ on:
   push:
     tags:
       - "v*"
+
+# Set now date env
+env:
+  NOW: ${{ format('now-{0}', github.run_number) }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,12 +19,13 @@ jobs:
         with:
           # Optionally strip `v` prefix
           strip_v: true
+        continue-on-error: true
       - name: Maven Build
         run: mvn clean package -DskipTests
       - name: Push to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: kevinpan45/platform:${{steps.tag.outputs.tag}}
+          name: kevinpan45/platform:${{steps.tag.outputs.tag:NOW}}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
