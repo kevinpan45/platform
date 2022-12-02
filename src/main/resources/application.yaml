@@ -2,7 +2,7 @@ server:
   port: ${instance.port:9527}
 spring:
   application:
-    name: archetype-demo
+    name: ${instance.name}
   datasource:
     url: jdbc:mysql://${instance.database.host:localhost}:${instance.database.port:3306}/${instance.database.schema}?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: ${instance.database.username:root}
