@@ -1,12 +1,14 @@
+name: Build and Publish Docker Image
+
 on:
   workflow_dispatch:
   push:
     tags:
       - "v*"
 
-# Set now date env
+# Set new date env
 env:
-  version: ${{ format('now-{0}', github.run_number) }}
+  version: $(date +'%Y-%m-%d-%H-%M-%S')
 
 jobs:
   build:
@@ -28,7 +30,7 @@ jobs:
       - name: Push to Docker Hub
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: kevinpan45/platform:${{steps.tag.outputs.tag:version}}
+          name: kevinpan45/platform:${{ env.version }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
