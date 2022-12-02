@@ -85,8 +85,8 @@
   <repositories>
     <repository>
       <id>github</id>
-      <name>GitHub OWNER Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/kevinpan45/*</url>
+      <name>GitHub Maven Packages</name>
+      <url>https://maven.pkg.github.com/kevinpan45/basic-framework</url>
     </repository>
   </repositories>
 </project>
