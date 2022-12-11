@@ -1,5 +1,5 @@
 server:
-  port: ${instance.port:9527}
+  port: ${instance.port:8080}
 spring:
   application:
     name: ${instance.name}
@@ -30,6 +30,11 @@ spring:
         health-check-interval: 15s
         service-name: ${spring.application.name}
         instance-id: ${spring.application.name}:${server.port}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: https://sandrino.auth0.com/.well-known/jwks.json
 
 # Log Configuration
 logging:
@@ -45,9 +50,8 @@ logging:
 
 # Springboot Management Configuration
 management:
-  endpoint:
-    shutdown:
-      enabled: true
+  server:
+    port: 8081
   endpoints:
     web:
       exposure:
